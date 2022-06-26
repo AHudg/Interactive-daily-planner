@@ -21,10 +21,12 @@ textarea{
   border-bottom: 10px solid black;
 }
 
+/* add this to the particular input you type in? */
 .description{
   white-space: pre-wrap;
 }
 
+/* add this to <div> that contains the entire schedule blocks */
 .time-block{
   text-align: center;
   border-radius: 15px;
@@ -36,6 +38,7 @@ textarea{
   border-top: 1px solid white;;
 }
 
+/* add this to the <span> element for hour */
 .hour {
   background-color: #ffffff;
   color: #000000;
