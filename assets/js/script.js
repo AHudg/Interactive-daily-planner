@@ -1,6 +1,7 @@
 // global variable used to iterate through array when needed (e.g., for setting time id for each div)
 var arrayIterator = 0;
 
+// initializes the schedule upon page load
 var createScheduler = function() {
 // sets the current day to the top of the page
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
@@ -20,6 +21,8 @@ for (i=8; i<17; i++) {
     var textareaEl = $("<textarea class='col-8 description' id='" + hourArray[arrayIterator] + "'>");
     // dynamically creates the button to save our entered data
     var buttonEl = $("<button class='col-2 saveBtn'>")
+    // creates the save icon for the button
+    var iconEl = $("<i class='fa fa-save'>");
 
     // find the <div id='parent' and append a dynamically created <div> that will serve as a container for our time, text area, and button
     $("div#parent").append(createBlockEl);
@@ -27,12 +30,15 @@ for (i=8; i<17; i++) {
     $(createBlockEl).append(spanEl);
     $(createBlockEl).append(textareaEl);
     $(createBlockEl).append(buttonEl);
+    // appends the icon to the button
+    $(buttonEl).append(iconEl);
 
     // increase the global iterator we created to iterate 
     arrayIterator++;
 };
 };
 
+// grabs the id that is associated with the particular textare
 var getId = function (element) {
     // grabs the id set for each textarea
     var hour = $(element).attr('id');
@@ -84,6 +90,7 @@ var getId = function (element) {
 };
 };
 
+// logic for styling the textarea background color
 var checkHour = function(checkTime,element) {
     // creates a variable for the current time
     var currentTime = new Date();
@@ -106,13 +113,14 @@ var checkHour = function(checkTime,element) {
     }
 };
 
-// calls createScheduler to create the schedule blocks
-createScheduler();
-getId($("textarea"));
-
 // creates a setInterval to audit the current time against our time schedule blocs
 setInterval(function() {
     $('textarea').each(function() {
         getId($(this));
     });
 }, 10000);
+
+// calls createScheduler to create the schedule blocks
+createScheduler();
+// calls getId to populate schedule block background upon page load
+getId($("textarea"));
