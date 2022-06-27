@@ -34,12 +34,17 @@ for (i=8; i<17; i++) {
 };
 
 var getId = function (element) {
+    // grabs the id set for each textarea
     var hour = $(element).attr('id');
+    // creates a new time that we will set for hours to check against
     var divTime = new Date();
 
+    // switch case logic to decide what hour we will audit the current time against
     switch(hour) {
         case "eight":
+            // sets the time for divTime as "08:00:00"
             divTime.setHours(8,0,0);
+            // sends this time and the textarea to checkHour function
             checkHour(divTime,element);
             break;
         case "nine":
@@ -74,20 +79,26 @@ var getId = function (element) {
             divTime.setHours(16,0,0);
             checkHour(divTime,element);
             break;
+        default:
+            break;
 };
 };
 
 var checkHour = function(checkTime,element) {
+    // creates a variable for the current time
     var currentTime = new Date();
 
+    // if the current time's hour is less than our set time hour -> it is green for future
     if (currentTime.getHours() < checkTime.getHours()) {
         $(element).addClass('future');
         $(element).removeClass('present');
         $(element).removeClass('past');
+    // if the current time's hour is equal to the set time hour -> it is red for present
     } else if (currentTime.getHours() === checkTime.getHours()) {
         $(element).removeClass('future');
         $(element).addClass('present');
         $(element).removeClass('past');
+    // if the current timer's hour is greater than the set time hour -> it is gray for past
     } else {
         $(element).removeClass('future');
         $(element).removeClass('present');
@@ -95,8 +106,11 @@ var checkHour = function(checkTime,element) {
     }
 };
 
+// calls createScheduler to create the schedule blocks
 createScheduler();
+getId($("textarea"));
 
+// creates a setInterval to audit the current time against our time schedule blocs
 setInterval(function() {
     $('textarea').each(function() {
         getId($(this));
