@@ -21,7 +21,7 @@ Through JQuery, I dynamically created and appended the schedule's time blocks an
 Note - Moment.js was used to populate the date in the header as well as assign the time to each time block; however, JavaScript Date objects were used to conduct the logic for comparing times and coloring the backgrounds respectively.
 
 ### While Loop
-I implemented my first while loop to decide how to store the saved texts and overwrite the same object once saved over. The variabel scheduleArray is the variable called from the localStorage. The -1/0 logic returned from the .indexOf as well as scheduleArray.length were both used to maintain the while loop and iterate through the array. When the loop broke, an if statement handled logic as to how to update the scheduleArray and saves it back to the localStorage. I honestly am pretty proud of this little piece of logic.
+I implemented my first while loop to decide how to store the saved texts and overwrite the same object once saved again. The variable scheduleArray is the variable called from the localStorage. The -1/0 logic returned from the .indexOf as well as scheduleArray.length were both used to maintain the while loop and iterate through the array. When the loop broke, an if statement handled logic as to how to update the scheduleArray and saves it back to the localStorage. I honestly am pretty proud of this little piece of logic.
 
 ![A screen shot of my while loop that decides how code is saved to the variable scheduleArray which will be saved to localStorage.](./assets/images/WhileLoops.png)
 
