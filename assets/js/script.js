@@ -239,5 +239,3 @@ loadSchedule();
 
 // event delegation
 $("#parent").on("click",'.saveBtn', saveTextarea);
-
-// you get an error if they click on the icon. Fix that.
