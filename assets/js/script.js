@@ -3,8 +3,6 @@ var hourArrayIterator = 0;
 // initializes an array that contains the ids for each div that creates the scheduler "blocks"
 var hourArray = ["eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen"];
 
-var saveArrayIterator = 0;
-
 // initializes the schedule upon page load
 var createScheduler = function() {
 // sets the current day to the top of the page
@@ -22,8 +20,8 @@ for (i=8; i<17; i++) {
     var textareaEl = $("<textarea class='col-8 description' id='" + hourArray[hourArrayIterator] + "'>");
     // dynamically creates the button to save our entered data
     var buttonEl = $("<button class='col-2 saveBtn' id='" + hourArray[hourArrayIterator] + "'>");
-    // creates the save icon for the button
-    var iconEl = $("<i class='fa fa-save'>");
+    // creates the save icon for the button - adds the id here as well to allow you to click the icon and the javascript still saves; without it, it throws an error;
+    var iconEl = $("<i class='fa fa-save' id='" + hourArray[hourArrayIterator] + "'>");
 
     // find the <div id='parent' and append a dynamically created <div> that will serve as a container for our time, text area, and button
     $("div#parent").append(createBlockEl);
@@ -38,6 +36,13 @@ for (i=8; i<17; i++) {
     hourArrayIterator++;
 };
 };
+
+// color the background initially according to the current time (without this code- the backgrounds don't populate until the first timer audits)
+var initialize = function() {
+    for (i = 0; i < hourArray.length; i++) {
+        getId($("textarea#"+hourArray[i]));
+    };
+}
 
 // grabs the id that is associated with the particular textare
 var getId = function (element) {
@@ -121,6 +126,7 @@ setInterval(function() {
     });
 }, 10000);
 
+// saves the textarea value and the specific time into an object then store all the objects in an array in localStorage
 var saveTextarea = function(event) {
     // grabs the id of the button which corresponds to the id of the schedule block it is in
     var timeBlock = $(event.target).attr('id');
@@ -176,19 +182,54 @@ var saveTextarea = function(event) {
     localStorage.setItem("Schedule Info", JSON.stringify(scheduleArray));
 };
 
+// loads the localStorage data and displays in the specific textarea if applicable
 var loadSchedule = function() {
     scheduleArray = JSON.parse(localStorage.getItem("Schedule Info"));
-    // need to code a loop that grabs the id and sets the text area value to the respectable boxes
+    // if the variable exist in localStorage... proceed
+    if (scheduleArray) {
+        // iterates through the variable returned from local storage
+        for (i=0;i<scheduleArray.length;i++) {
+            // gathers the id of the specific time block for the schedule and the text to input
+            var timeBlock = scheduleArray[i].id;
+            var scheduleText = scheduleArray[i].text;
+            
+            // switch case to assign the text (scheduleText) to that specific time associated textarea (timeBlock)
+            switch(timeBlock) {
+                case "eight":
+                    // targets the specific textarea according to the timeblock id and places the text
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "nine":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "ten":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "eleven":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "twelve":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "thirteen":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "fourteen":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "fifteen":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+                case "sixteen":
+                    $("textarea#"+timeBlock).text(scheduleText);
+                    break;
+            };
+        };
+    };
 };
 
 // calls createScheduler to create the schedule blocks
 createScheduler();
-
-var initialize = function() {
-    for (i = 0; i < hourArray.length; i++) {
-        getId($("textarea#"+hourArray[i]));
-    };
-}
 
 // calls getId to populate schedule block background upon page load
 initialize();
